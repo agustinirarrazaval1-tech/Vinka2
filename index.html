@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VINCA — Colección de mesas de mármol</title>
+<meta name="description" content="VINCA. Piezas únicas de mármol natural para elevar cualquier rincón de tu casa. Mesas Cefalú, Menfi y Volterra.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital@0;1&family=Lato:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#3f3f5b;
+    --navy-deep:#34344a;
+    --cream:#f6f2ed;
+    --cream-2:#efe9e1;
+    --ink:#3d4148;
+    --tan:#b39c85;
+    --gray:#6b6b6b;
+    --line:#ddd6cc;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Lato',sans-serif;
+    line-height:1.5;
+  }
+  img{max-width:100%;display:block;}
+  a{color:inherit;}
+  .serif{font-family:'EB Garamond', serif;}
+
+  /* NAV */
+  header.site{
+    position:sticky; top:0; z-index:50;
+    background:rgba(246,242,237,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    max-width:1100px; margin:0 auto; padding:16px 24px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .nav-inner img{height:22px; width:auto;}
+  nav.links{display:flex; gap:28px; font-size:14px; letter-spacing:.03em;}
+  nav.links a{text-decoration:none; color:var(--ink); opacity:.8; transition:opacity .2s;}
+  nav.links a:hover{opacity:1;}
+  .btn{
+    display:inline-block; padding:11px 22px; background:var(--navy); color:var(--cream);
+    text-decoration:none; font-size:14px; letter-spacing:.03em; border-radius:2px;
+    transition:background .2s;
+  }
+  .btn:hover{background:var(--navy-deep);}
+  .nav-cta{display:none;}
+  @media(min-width:640px){.nav-cta{display:inline-block;}}
+
+  /* HERO */
+  .hero{
+    background:var(--navy); color:var(--cream);
+    text-align:center; padding:90px 24px 70px;
+  }
+  .hero img.logo{height:52px; width:auto; margin:0 auto 34px;}
+  .divider{
+    display:flex; align-items:center; justify-content:center; gap:16px;
+    margin:26px auto; max-width:320px;
+  }
+  .divider span{height:1px; flex:1; background:rgba(246,242,237,.4);}
+  .divider .diamond{width:7px;height:7px; background:var(--cream); transform:rotate(45deg); flex:none;}
+  .hero h1{
+    font-family:'EB Garamond', serif; font-weight:400; font-size:clamp(28px,4vw,40px);
+    letter-spacing:.01em;
+  }
+  .hero p.lede{
+    max-width:520px; margin:26px auto 0; color:rgba(246,242,237,.85); font-size:16px;
+  }
+  .hero .tagline{
+    font-family:'EB Garamond', serif; font-size:clamp(22px,3vw,28px); margin-top:34px;
+  }
+  .hero-cta{margin-top:42px;}
+
+  /* INTRO STRIP */
+  .intro{
+    max-width:720px; margin:0 auto; padding:70px 24px 20px; text-align:center;
+  }
+  .intro h2{
+    font-family:'EB Garamond', serif; font-weight:400; font-size:clamp(26px,3.5vw,34px);
+    color:var(--navy);
+  }
+  .intro p{color:var(--gray); margin-top:16px; font-size:16px;}
+
+  /* PRODUCTS */
+  .products{max-width:1100px; margin:0 auto; padding:40px 24px 20px;}
+  .product{
+    display:grid; grid-template-columns:1fr; gap:0;
+    background:#fff; border:1px solid var(--line);
+    margin-bottom:48px; overflow:hidden;
+  }
+  @media(min-width:860px){
+    .product{grid-template-columns:1.1fr 1fr;}
+    .product.reverse{direction:rtl;}
+    .product.reverse > *{direction:ltr;}
+  }
+  .product .photo{background:var(--cream-2);}
+  .product .photo img{width:100%; height:100%; object-fit:cover; min-height:320px;}
+  .product .info{padding:40px clamp(24px,4vw,52px); display:flex; flex-direction:column; justify-content:center;}
+  .product .name{font-family:'EB Garamond', serif; font-weight:400; font-size:clamp(32px,4vw,44px); color:var(--navy);}
+  .product .rule{width:52px; height:1px; background:var(--tan); margin:16px 0 18px;}
+  .product .desc{color:var(--gray); font-size:16px; margin-bottom:26px;}
+  .product .spec-label{
+    font-family:'Lato',sans-serif; font-weight:700; font-size:12.5px; letter-spacing:.09em;
+    text-transform:uppercase; color:var(--tan); margin-bottom:6px;
+  }
+  table.specs{width:100%; border-collapse:collapse; margin-bottom:22px;}
+  table.specs tr{border-bottom:1px solid var(--line);}
+  table.specs tr:last-child{border-bottom:none;}
+  table.specs td{padding:11px 0; font-size:14.5px; vertical-align:top;}
+  table.specs td.k{color:var(--ink); font-weight:700; width:42%;}
+  table.specs td.v{color:var(--gray);}
+  .price-row{
+    display:flex; align-items:baseline; justify-content:space-between;
+    padding-top:18px; border-top:1px solid var(--navy); margin-top:4px;
+  }
+  .price-row .price{font-family:'EB Garamond', serif; font-size:30px; color:var(--navy);}
+  .price-row .note{font-size:12.5px; color:var(--gray);}
+  .stock{font-size:12.5px; color:var(--gray); margin-top:6px;}
+  .buy{
+    margin-top:22px; display:inline-flex; align-items:center; justify-content:center; gap:8px;
+    background:var(--navy); color:var(--cream); text-decoration:none;
+    padding:14px 24px; font-size:14.5px; letter-spacing:.03em; text-align:center;
+    transition:background .2s;
+  }
+  .buy:hover{background:var(--navy-deep);}
+  .fine{font-family:'EB Garamond', serif; font-style:italic; font-size:13px; color:var(--gray); margin-top:18px;}
+
+  /* WHY MARBLE */
+  .why{background:var(--cream-2); border-top:1px solid var(--line); border-bottom:1px solid var(--line); margin-top:20px;}
+  .why-inner{max-width:900px; margin:0 auto; padding:64px 24px; text-align:center;}
+  .why h2{font-family:'EB Garamond', serif; font-weight:400; font-size:clamp(24px,3.2vw,30px); color:var(--navy); margin-bottom:18px;}
+  .why p{color:var(--gray); max-width:560px; margin:0 auto;}
+
+  /* CONTACT */
+  .contact{max-width:640px; margin:0 auto; padding:70px 24px; text-align:center;}
+  .contact h2{font-family:'EB Garamond', serif; font-weight:400; font-size:clamp(26px,3.5vw,32px); color:var(--navy);}
+  .contact p{color:var(--gray); margin-top:14px;}
+  .contact-links{display:flex; flex-wrap:wrap; gap:14px; justify-content:center; margin-top:32px;}
+  .contact-links a{
+    display:inline-flex; align-items:center; gap:8px; padding:13px 22px;
+    border:1px solid var(--navy); text-decoration:none; color:var(--navy); font-size:14.5px;
+    transition:background .2s, color .2s;
+  }
+  .contact-links a:hover{background:var(--navy); color:var(--cream);}
+  .contact-links a.primary{background:var(--navy); color:var(--cream);}
+  .contact-links a.primary:hover{background:var(--navy-deep);}
+
+  /* FOOTER */
+  footer{background:var(--navy); color:rgba(246,242,237,.75); text-align:center; padding:36px 24px; font-size:13px;}
+  footer img{height:20px; margin:0 auto 14px;}
+  footer .social{margin-top:10px;}
+  footer a{color:rgba(246,242,237,.9); text-decoration:none;}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="nav-inner">
+    <img src="assets/img/logo-dark.png" alt="VINCA">
+    <nav class="links">
+      <a href="#coleccion">Colección</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+    <a class="btn nav-cta" href="#coleccion">Ver mesas</a>
+  </div>
+</header>
+
+<section class="hero">
+  <img class="logo" src="assets/img/logo-cream.png" alt="VINCA">
+  <div class="divider"><span></span><div class="diamond"></div><span></span></div>
+  <h1 class="serif">Colección de mesas de mármol</h1>
+  <div class="divider"><span></span><div class="diamond"></div><span></span></div>
+  <p class="lede">El mármol es una piedra natural noble y atemporal, reconocida por sus vetas únicas, su durabilidad y su capacidad de aportar textura, luz y sofisticación a cualquier espacio.</p>
+  <p class="tagline serif">Piezas únicas para elevar<br>cualquier rincón de tu casa.</p>
+  <div class="hero-cta"><a class="btn" href="#coleccion">Ver colección</a></div>
+</section>
+
+<section class="intro">
+  <h2 class="serif">Tres diseños, una misma esencia</h2>
+  <p>Cada mesa es una pieza de mármol natural con base de fierro negro pintado. Al ser un material natural, cada unidad puede presentar variaciones únicas en veta y color — parte de lo que las hace irrepetibles.</p>
+</section>
+
+<section class="products" id="coleccion">
+
+  <article class="product">
+    <div class="photo"><img src="assets/img/cefalu.jpg" alt="Mesa de mármol Cefalú de VINCA en un living"></div>
+    <div class="info">
+      <h3 class="name serif">Cefalú</h3>
+      <div class="rule"></div>
+      <p class="desc">Pieza versátil y atemporal, ideal para living, dormitorio o rincón de apoyo.</p>
+
+      <div class="spec-label">Ficha técnica</div>
+      <table class="specs">
+        <tr><td class="k">Medidas</td><td class="v">Alto: 60 cm<br>Cubierta ovalada: 32 x 42 cm aprox.</td></tr>
+        <tr><td class="k">Material</td><td class="v">Mármol natural</td></tr>
+        <tr><td class="k">Tono principal</td><td class="v">Beige / crema</td></tr>
+        <tr><td class="k">Base</td><td class="v">Fierro negro pintado</td></tr>
+      </table>
+
+      <div class="price-row">
+        <span class="price serif">$100.000</span>
+        <span class="note">+ despacho · Precio Lanzamiento</span>
+      </div>
+      <div class="stock">Disponibilidad: sujeto a stock</div>
+      <a class="buy" href="https://wa.me/56997392615?text=Hola%20Maria%20Ignacia%2C%20me%20interesa%20la%20mesa%20Cefal%C3%BA%20(%24100.000)" target="_blank" rel="noopener">Consultar por WhatsApp</a>
+      <p class="fine">Al ser mármol natural, cada pieza puede tener variaciones únicas en veta y color.</p>
+    </div>
+  </article>
+
+  <article class="product reverse">
+    <div class="photo"><img src="assets/img/menfi.jpg" alt="Mesa de mármol Menfi de VINCA en un living"></div>
+    <div class="info">
+      <h3 class="name serif">Menfi</h3>
+      <div class="rule"></div>
+      <p class="desc">Diseño funcional con doble superficie, ideal para sumar apoyo y estilo en espacios pequeños.</p>
+
+      <div class="spec-label">Ficha técnica</div>
+      <table class="specs">
+        <tr><td class="k">Medidas</td><td class="v">Alto: 50 cm<br>2 cubiertas ovaladas: 40 x 26 cm aprox.</td></tr>
+        <tr><td class="k">Material</td><td class="v">Mármol natural</td></tr>
+        <tr><td class="k">Tono principal</td><td class="v">Beige / crema</td></tr>
+        <tr><td class="k">Base</td><td class="v">Fierro negro pintado</td></tr>
+      </table>
+
+      <div class="price-row">
+        <span class="price serif">$130.000</span>
+        <span class="note">+ despacho · Precio Lanzamiento</span>
+      </div>
+      <div class="stock">Disponibilidad: sujeto a stock</div>
+      <a class="buy" href="https://wa.me/56997392615?text=Hola%20Maria%20Ignacia%2C%20me%20interesa%20la%20mesa%20Menfi%20(%24130.000)" target="_blank" rel="noopener">Consultar por WhatsApp</a>
+      <p class="fine">Al ser mármol natural, cada pieza puede tener variaciones únicas en veta y color.</p>
+    </div>
+  </article>
+
+  <article class="product">
+    <div class="photo"><img src="assets/img/volterra.jpg" alt="Mesas de mármol Volterra de VINCA en un living"></div>
+    <div class="info">
+      <h3 class="name serif">Volterra</h3>
+      <div class="rule"></div>
+      <p class="desc">Dos piezas que funcionan juntas o por separado para vestir tu living con equilibrio y calidez.</p>
+
+      <div class="spec-label">Ficha técnica</div>
+      <table class="specs">
+        <tr><td class="k">Medidas</td><td class="v">Mesa 1: 60 cm alto | 32 x 42 cm aprox.<br>Mesa 2: 50 cm alto | 38 x 29 cm aprox.</td></tr>
+        <tr><td class="k">Material</td><td class="v">Mármol natural</td></tr>
+        <tr><td class="k">Tono principal</td><td class="v">Beige / crema</td></tr>
+        <tr><td class="k">Base</td><td class="v">Fierro negro pintado</td></tr>
+      </table>
+
+      <div class="price-row">
+        <span class="price serif">$160.000</span>
+        <span class="note">+ despacho · Precio Lanzamiento</span>
+      </div>
+      <div class="stock">Disponibilidad: sujeto a stock</div>
+      <a class="buy" href="https://wa.me/56997392615?text=Hola%20Maria%20Ignacia%2C%20me%20interesa%20el%20set%20Volterra%20(%24160.000)" target="_blank" rel="noopener">Consultar por WhatsApp</a>
+      <p class="fine">Al ser mármol natural, cada pieza puede tener variaciones únicas en veta y color.</p>
+    </div>
+  </article>
+
+</section>
+
+<section class="why">
+  <div class="why-inner">
+    <h2 class="serif">Por qué mármol</h2>
+    <p>El mármol es una piedra natural noble y atemporal, reconocida por sus vetas únicas, su durabilidad y su capacidad de aportar textura, luz y sofisticación a cualquier espacio.</p>
+  </div>
+</section>
+
+<section class="contact" id="contacto">
+  <h2 class="serif">¿Tienes dudas o quieres reservar tu pieza?</h2>
+  <p>Escríbenos y te ayudamos a elegir la mesa perfecta para tu espacio.</p>
+  <div class="contact-links">
+    <a class="primary" href="https://wa.me/56997392615?text=Hola%20Maria%20Ignacia" target="_blank" rel="noopener">WhatsApp +56 9 9739 2615</a>
+    <a href="https://wa.me/56961555992?text=Hola%20Margarita" target="_blank" rel="noopener">WhatsApp +56 9 6155 5992</a>
+    <a href="https://instagram.com/vincainteriores" target="_blank" rel="noopener">@vincainteriores</a>
+  </div>
+</section>
+
+<footer>
+  <img src="assets/img/logo-cream.png" alt="VINCA">
+  <div>Colección de mesas de mármol · Santiago, Chile</div>
+  <div class="social">
+    <a href="https://instagram.com/vincainteriores" target="_blank" rel="noopener">@vincainteriores</a>
+  </div>
+</footer>
+
+</body>
+</html>
