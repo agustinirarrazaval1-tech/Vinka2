@@ -2,14 +2,8 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/fireba
 import { getFirestore, collection, doc, onSnapshot, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import { firebaseConfig, usuarioAdmin, correoAdmin } from "./firebase-config.js";
+import { PRODUCTOS, formatoPrecio } from "./productos.js";
 
-// Modelos a la venta. El id debe coincidir con data-producto en index.html
-// y usar solo minúsculas, números o guiones (lo exigen las reglas de Firestore).
-const PRODUCTOS = [
-  { id: "cefalu",   nombre: "Cefalú",   detalle: "Mesa ovalada · $100.000",   foto: "assets/img/cefalu.jpg", unidad: ["unidad", "unidades"] },
-  { id: "menfi",    nombre: "Menfi",    detalle: "Doble cubierta · $130.000", foto: "assets/img/menfi.jpg", unidad: ["unidad", "unidades"] },
-  { id: "volterra", nombre: "Volterra", detalle: "Set de 2 mesas · $160.000", foto: "assets/img/volterra.jpg", unidad: ["set", "sets"] }
-];
 
 const $ = (id) => document.getElementById(id);
 const overlay = $("panel-overlay");
@@ -41,6 +35,8 @@ function textoStock(p, n) {
 }
 
 function pintarPagina() {
+  // El carrito usa el stock para no dejar pedir más de lo disponible
+  document.dispatchEvent(new CustomEvent("vinca:stock", { detail: { ...stockActual } }));
   for (const p of PRODUCTOS) {
     const el = document.querySelector(`.stock[data-producto="${p.id}"]`);
     if (!el) continue;
@@ -62,7 +58,7 @@ function construirDashboard() {
       <img class="miniatura" src="${p.foto}" alt="Mesa ${p.nombre}" loading="lazy">
       <div>
         <div class="nombre">${p.nombre}</div>
-        <div class="detalle">${p.detalle} · <span data-actual></span></div>
+        <div class="detalle">${p.detalle} · ${formatoPrecio(p.precio)} · <span data-actual></span></div>
       </div>
       <div class="editor">
         <button type="button" data-accion="menos" aria-label="Restar uno">−</button>
