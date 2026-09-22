@@ -133,6 +133,41 @@
   .buy:hover{background:var(--navy-deep);}
   .fine{font-family:'EB Garamond', serif; font-style:italic; font-size:13px; color:var(--gray); margin-top:18px;}
 
+  /* GALERÍA */
+  .galeria{display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-bottom:48px;}
+  @media(max-width:700px){
+    .galeria{gap:10px;}
+    .tarjeta-foto{margin-bottom:8px;}
+    .tarjeta-nombre{font-size:19px;}
+    .tarjeta-sub{font-size:9.5px; letter-spacing:.05em;}
+  }
+  .tarjeta{
+    display:flex; flex-direction:column; align-items:center; gap:4px;
+    background:none; border:none; padding:0; cursor:pointer; font:inherit; color:inherit; text-align:center;
+  }
+  .tarjeta-foto{display:block; width:100%; aspect-ratio:4/5; overflow:hidden; background:var(--cream-2); border:1px solid var(--line); margin-bottom:14px;}
+  .tarjeta-foto img{width:100%; height:100%; object-fit:cover; transition:transform .5s ease;}
+  .tarjeta:hover .tarjeta-foto img, .tarjeta:focus-visible .tarjeta-foto img{transform:scale(1.04);}
+  .tarjeta:focus-visible{outline:2px solid var(--tan); outline-offset:6px;}
+  .tarjeta-nombre{font-size:clamp(19px,2.6vw,30px); color:var(--navy); line-height:1.1;}
+  .tarjeta-sub{font-size:12.5px; letter-spacing:.09em; text-transform:uppercase; color:var(--tan);}
+
+  /* FICHA (ventana) */
+  dialog.detalle{
+    border:none; padding:0; background:transparent; margin:auto;
+    width:min(1000px, calc(100% - 32px)); max-height:calc(100vh - 32px); overflow:auto;
+  }
+  dialog.detalle::backdrop{background:rgba(52,52,74,.6);}
+  dialog.detalle .product{margin:0;}
+  dialog.detalle .product .photo img{min-height:260px;}
+  .detalle-cerrar{
+    position:absolute; top:10px; right:10px; z-index:2; width:40px; height:40px;
+    border:none; border-radius:50%; background:rgba(246,242,237,.92); color:var(--navy);
+    font-size:26px; line-height:1; cursor:pointer;
+  }
+  @media(max-width:859px){dialog.detalle .product .photo img{max-height:42vh;}}
+  body.ficha-abierta{overflow:hidden;}
+
   /* WHY MARBLE */
   .why{background:var(--cream-2); border-top:1px solid var(--line); border-bottom:1px solid var(--line); margin-top:20px;}
   .why-inner{max-width:900px; margin:0 auto; padding:64px 24px; text-align:center;}
@@ -259,80 +294,107 @@
 
 <section class="products" id="coleccion">
 
-  <article class="product">
-    <div class="photo"><img src="assets/img/cefalu.jpg" alt="Mesa de mármol Cefalú de VINCA en un living"></div>
-    <div class="info">
-      <h3 class="name serif">Cefalú</h3>
-      <div class="rule"></div>
-      <p class="desc">Pieza versátil y atemporal, ideal para living, dormitorio o rincón de apoyo.</p>
+  <div class="galeria">
+    <button type="button" class="tarjeta" data-abre="detalle-cefalu">
+      <span class="tarjeta-foto"><img src="assets/img/cefalu.jpg" alt="Mesa Cefalú"></span>
+      <span class="tarjeta-nombre serif">Cefalú</span>
+      <span class="tarjeta-sub">Mesa ovalada</span>
+    </button>
+    <button type="button" class="tarjeta" data-abre="detalle-menfi">
+      <span class="tarjeta-foto"><img src="assets/img/menfi.jpg" alt="Mesa Menfi"></span>
+      <span class="tarjeta-nombre serif">Menfi</span>
+      <span class="tarjeta-sub">Doble cubierta</span>
+    </button>
+    <button type="button" class="tarjeta" data-abre="detalle-volterra">
+      <span class="tarjeta-foto"><img src="assets/img/volterra.jpg" alt="Mesa Volterra"></span>
+      <span class="tarjeta-nombre serif">Volterra</span>
+      <span class="tarjeta-sub">Set de 2 mesas</span>
+    </button>
+  </div>
 
-      <div class="spec-label">Ficha técnica</div>
-      <table class="specs">
-        <tr><td class="k">Medidas</td><td class="v">Alto: 60 cm<br>Cubierta ovalada: 32 x 42 cm aprox.</td></tr>
-        <tr><td class="k">Material</td><td class="v">Mármol natural</td></tr>
-        <tr><td class="k">Tono principal</td><td class="v">Beige / crema</td></tr>
-        <tr><td class="k">Base</td><td class="v">Fierro negro pintado</td></tr>
-      </table>
+  <dialog class="detalle" id="detalle-cefalu" aria-label="Cefalú">
+    <button type="button" class="detalle-cerrar" aria-label="Cerrar">&times;</button>
+    <article class="product">
+      <div class="photo"><img src="assets/img/cefalu.jpg" alt="Mesa de mármol Cefalú de VINCA en un living"></div>
+      <div class="info">
+        <h3 class="name serif">Cefalú</h3>
+        <div class="rule"></div>
+        <p class="desc">Pieza versátil y atemporal, ideal para living, dormitorio o rincón de apoyo.</p>
 
-      <div class="price-row">
-        <span class="price serif">$100.000</span>
-        <span class="note">+ despacho · Precio Lanzamiento</span>
+        <div class="spec-label">Ficha técnica</div>
+        <table class="specs">
+          <tr><td class="k">Medidas</td><td class="v">Alto: 60 cm<br>Cubierta ovalada: 32 x 42 cm aprox.</td></tr>
+          <tr><td class="k">Material</td><td class="v">Mármol natural</td></tr>
+          <tr><td class="k">Tono principal</td><td class="v">Beige / crema</td></tr>
+          <tr><td class="k">Base</td><td class="v">Fierro negro pintado</td></tr>
+        </table>
+
+        <div class="price-row">
+          <span class="price serif">$100.000</span>
+          <span class="note">+ despacho · Precio Lanzamiento</span>
+        </div>
+        <div class="stock" data-producto="cefalu">Disponibilidad: sujeto a stock</div>
+        <a class="buy" href="https://wa.me/56997392615?text=Hola%20Maria%20Ignacia%2C%20me%20interesa%20la%20mesa%20Cefal%C3%BA%20(%24100.000)" target="_blank" rel="noopener">Consultar por WhatsApp</a>
+        <p class="fine">Al ser mármol natural, cada pieza puede tener variaciones únicas en veta y color.</p>
       </div>
-      <div class="stock" data-producto="cefalu">Disponibilidad: sujeto a stock</div>
-      <a class="buy" href="https://wa.me/56997392615?text=Hola%20Maria%20Ignacia%2C%20me%20interesa%20la%20mesa%20Cefal%C3%BA%20(%24100.000)" target="_blank" rel="noopener">Consultar por WhatsApp</a>
-      <p class="fine">Al ser mármol natural, cada pieza puede tener variaciones únicas en veta y color.</p>
-    </div>
-  </article>
+    </article>
+  </dialog>
 
-  <article class="product reverse">
-    <div class="photo"><img src="assets/img/menfi.jpg" alt="Mesa de mármol Menfi de VINCA en un living"></div>
-    <div class="info">
-      <h3 class="name serif">Menfi</h3>
-      <div class="rule"></div>
-      <p class="desc">Diseño funcional con doble superficie, ideal para sumar apoyo y estilo en espacios pequeños.</p>
+  <dialog class="detalle" id="detalle-menfi" aria-label="Menfi">
+    <button type="button" class="detalle-cerrar" aria-label="Cerrar">&times;</button>
+    <article class="product">
+      <div class="photo"><img src="assets/img/menfi.jpg" alt="Mesa de mármol Menfi de VINCA en un living"></div>
+      <div class="info">
+        <h3 class="name serif">Menfi</h3>
+        <div class="rule"></div>
+        <p class="desc">Diseño funcional con doble superficie, ideal para sumar apoyo y estilo en espacios pequeños.</p>
 
-      <div class="spec-label">Ficha técnica</div>
-      <table class="specs">
-        <tr><td class="k">Medidas</td><td class="v">Alto: 50 cm<br>2 cubiertas ovaladas: 40 x 26 cm aprox.</td></tr>
-        <tr><td class="k">Material</td><td class="v">Mármol natural</td></tr>
-        <tr><td class="k">Tono principal</td><td class="v">Beige / crema</td></tr>
-        <tr><td class="k">Base</td><td class="v">Fierro negro pintado</td></tr>
-      </table>
+        <div class="spec-label">Ficha técnica</div>
+        <table class="specs">
+          <tr><td class="k">Medidas</td><td class="v">Alto: 50 cm<br>2 cubiertas ovaladas: 40 x 26 cm aprox.</td></tr>
+          <tr><td class="k">Material</td><td class="v">Mármol natural</td></tr>
+          <tr><td class="k">Tono principal</td><td class="v">Beige / crema</td></tr>
+          <tr><td class="k">Base</td><td class="v">Fierro negro pintado</td></tr>
+        </table>
 
-      <div class="price-row">
-        <span class="price serif">$130.000</span>
-        <span class="note">+ despacho · Precio Lanzamiento</span>
+        <div class="price-row">
+          <span class="price serif">$130.000</span>
+          <span class="note">+ despacho · Precio Lanzamiento</span>
+        </div>
+        <div class="stock" data-producto="menfi">Disponibilidad: sujeto a stock</div>
+        <a class="buy" href="https://wa.me/56997392615?text=Hola%20Maria%20Ignacia%2C%20me%20interesa%20la%20mesa%20Menfi%20(%24130.000)" target="_blank" rel="noopener">Consultar por WhatsApp</a>
+        <p class="fine">Al ser mármol natural, cada pieza puede tener variaciones únicas en veta y color.</p>
       </div>
-      <div class="stock" data-producto="menfi">Disponibilidad: sujeto a stock</div>
-      <a class="buy" href="https://wa.me/56997392615?text=Hola%20Maria%20Ignacia%2C%20me%20interesa%20la%20mesa%20Menfi%20(%24130.000)" target="_blank" rel="noopener">Consultar por WhatsApp</a>
-      <p class="fine">Al ser mármol natural, cada pieza puede tener variaciones únicas en veta y color.</p>
-    </div>
-  </article>
+    </article>
+  </dialog>
 
-  <article class="product">
-    <div class="photo"><img src="assets/img/volterra.jpg" alt="Mesas de mármol Volterra de VINCA en un living"></div>
-    <div class="info">
-      <h3 class="name serif">Volterra</h3>
-      <div class="rule"></div>
-      <p class="desc">Dos piezas que funcionan juntas o por separado para vestir tu living con equilibrio y calidez.</p>
+  <dialog class="detalle" id="detalle-volterra" aria-label="Volterra">
+    <button type="button" class="detalle-cerrar" aria-label="Cerrar">&times;</button>
+    <article class="product">
+      <div class="photo"><img src="assets/img/volterra.jpg" alt="Mesas de mármol Volterra de VINCA en un living"></div>
+      <div class="info">
+        <h3 class="name serif">Volterra</h3>
+        <div class="rule"></div>
+        <p class="desc">Dos piezas que funcionan juntas o por separado para vestir tu living con equilibrio y calidez.</p>
 
-      <div class="spec-label">Ficha técnica</div>
-      <table class="specs">
-        <tr><td class="k">Medidas</td><td class="v">Mesa 1: 60 cm alto | 32 x 42 cm aprox.<br>Mesa 2: 50 cm alto | 38 x 29 cm aprox.</td></tr>
-        <tr><td class="k">Material</td><td class="v">Mármol natural</td></tr>
-        <tr><td class="k">Tono principal</td><td class="v">Beige / crema</td></tr>
-        <tr><td class="k">Base</td><td class="v">Fierro negro pintado</td></tr>
-      </table>
+        <div class="spec-label">Ficha técnica</div>
+        <table class="specs">
+          <tr><td class="k">Medidas</td><td class="v">Mesa 1: 60 cm alto | 32 x 42 cm aprox.<br>Mesa 2: 50 cm alto | 38 x 29 cm aprox.</td></tr>
+          <tr><td class="k">Material</td><td class="v">Mármol natural</td></tr>
+          <tr><td class="k">Tono principal</td><td class="v">Beige / crema</td></tr>
+          <tr><td class="k">Base</td><td class="v">Fierro negro pintado</td></tr>
+        </table>
 
-      <div class="price-row">
-        <span class="price serif">$160.000</span>
-        <span class="note">+ despacho · Precio Lanzamiento</span>
+        <div class="price-row">
+          <span class="price serif">$160.000</span>
+          <span class="note">+ despacho · Precio Lanzamiento</span>
+        </div>
+        <div class="stock" data-producto="volterra">Disponibilidad: sujeto a stock</div>
+        <a class="buy" href="https://wa.me/56997392615?text=Hola%20Maria%20Ignacia%2C%20me%20interesa%20el%20set%20Volterra%20(%24160.000)" target="_blank" rel="noopener">Consultar por WhatsApp</a>
+        <p class="fine">Al ser mármol natural, cada pieza puede tener variaciones únicas en veta y color.</p>
       </div>
-      <div class="stock" data-producto="volterra">Disponibilidad: sujeto a stock</div>
-      <a class="buy" href="https://wa.me/56997392615?text=Hola%20Maria%20Ignacia%2C%20me%20interesa%20el%20set%20Volterra%20(%24160.000)" target="_blank" rel="noopener">Consultar por WhatsApp</a>
-      <p class="fine">Al ser mármol natural, cada pieza puede tener variaciones únicas en veta y color.</p>
-    </div>
-  </article>
+    </article>
+  </dialog>
 
 </section>
 
@@ -392,6 +454,21 @@
   </div>
 </div>
 
+<script>
+  document.querySelectorAll('.tarjeta').forEach((t) => {
+    t.addEventListener('click', () => {
+      const d = document.getElementById(t.dataset.abre);
+      d.showModal();
+      d.scrollTop = 0;
+      document.body.classList.add('ficha-abierta');
+    });
+  });
+  document.querySelectorAll('dialog.detalle').forEach((d) => {
+    d.querySelector('.detalle-cerrar').addEventListener('click', () => d.close());
+    d.addEventListener('click', (e) => { if (e.target === d) d.close(); });
+    d.addEventListener('close', () => document.body.classList.remove('ficha-abierta'));
+  });
+</script>
 <script type="module" src="stock.js"></script>
 
 </body>
