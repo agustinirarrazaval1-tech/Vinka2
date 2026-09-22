@@ -1,14 +1,21 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+    function esVinca() {
+      return request.auth != null && request.auth.token.email == 'vincatech@vinca.cl';
+    }
     // Cualquiera puede ver el stock; solo la cuenta de VINCA puede cambiarlo.
+    // Acepta cualquier modelo (id en minúsculas, números o guiones), así que
+    // al cambiar la colección no hay que volver a tocar estas reglas.
     match /productos/{producto} {
       allow read: if true;
-      allow write: if request.auth != null
-                   && request.auth.token.email == 'vincatech@vinca.cl'
-                   && producto in ['cefalu', 'menfi', 'volterra']
-                   && request.resource.data.stock is int
-                   && request.resource.data.stock >= 0;
+      allow create, update: if esVinca()
+                            && producto.matches('^[a-z0-9-]{1,40}$')
+                            && request.resource.data.keys().hasOnly(['nombre', 'stock', 'actualizado'])
+                            && request.resource.data.stock is int
+                            && request.resource.data.stock >= 0
+                            && request.resource.data.stock <= 10000;
+      allow delete: if esVinca();
     }
     match /{document=**} {
       allow read, write: if false;
