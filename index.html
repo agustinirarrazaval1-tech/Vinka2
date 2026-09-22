@@ -168,6 +168,9 @@
     font-size:26px; line-height:1; cursor:pointer;
   }
   @media(max-width:859px){dialog.detalle .product .photo img{max-height:42vh;}}
+  /* Fotos que deben verse enteras (sin recorte) en la ficha */
+  dialog.detalle .product .photo.completa{display:flex; align-items:center; justify-content:center; background:var(--cream-2);}
+  dialog.detalle .product .photo.completa img{object-fit:contain; height:auto; min-height:0; max-height:none;}
   body.ficha-abierta{overflow:hidden;}
 
   /* CARRITO */
@@ -494,7 +497,7 @@
   <dialog class="detalle" id="detalle-matera" aria-label="Matera">
     <button type="button" class="detalle-cerrar" aria-label="Cerrar">&times;</button>
     <article class="product">
-      <div class="photo"><img src="assets/img/matera.webp" alt="Mesa de mármol Matera de VINCA junto a un sillón"></div>
+      <div class="photo completa"><img src="assets/img/matera.webp" alt="Mesa de mármol Matera de VINCA junto a un sillón"></div>
       <div class="info">
         <h3 class="name serif">Matera</h3>
         <div class="rule"></div>
@@ -531,7 +534,7 @@
   <dialog class="detalle" id="detalle-capri" aria-label="Capri">
     <button type="button" class="detalle-cerrar" aria-label="Cerrar">&times;</button>
     <article class="product">
-      <div class="photo"><img src="assets/img/capri.webp" alt="Mesa de mármol Capri de VINCA junto a un sofá"></div>
+      <div class="photo completa"><img src="assets/img/capri.webp" alt="Mesa de mármol Capri de VINCA junto a un sofá"></div>
       <div class="info">
         <h3 class="name serif">Capri</h3>
         <div class="rule"></div>
