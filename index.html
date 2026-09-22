@@ -39,10 +39,9 @@
     border-bottom:1px solid var(--line);
   }
   .nav-inner{
-    max-width:1100px; margin:0 auto; padding:16px 24px;
-    display:flex; align-items:center; justify-content:space-between;
+    max-width:1100px; margin:0 auto; padding:10px 24px; position:relative;
+    display:flex; align-items:center; justify-content:center; min-height:44px;
   }
-  .nav-inner img{height:22px; width:auto;}
   nav.links{display:flex; gap:28px; font-size:14px; letter-spacing:.03em;}
   nav.links a{text-decoration:none; color:var(--ink); opacity:.8; transition:opacity .2s;}
   nav.links a:hover{opacity:1;}
@@ -58,9 +57,9 @@
   /* HERO */
   .hero{
     background:var(--navy); color:var(--cream);
-    text-align:center; padding:90px 24px 70px;
+    text-align:center; padding:34px 24px;
   }
-  .hero img.logo{height:52px; width:auto; margin:0 auto 34px;}
+  .hero img.logo{height:54px; width:auto; max-width:100%; object-fit:contain; margin:0 auto;}
   .divider{
     display:flex; align-items:center; justify-content:center; gap:16px;
     margin:26px auto; max-width:320px;
@@ -81,7 +80,7 @@
 
   /* INTRO STRIP */
   .intro{
-    max-width:720px; margin:0 auto; padding:70px 24px 20px; text-align:center;
+    max-width:720px; margin:0 auto; padding:48px 24px 8px; text-align:center;
   }
   .intro h2{
     font-family:'EB Garamond', serif; font-weight:400; font-size:clamp(26px,3.5vw,34px);
@@ -134,9 +133,12 @@
   .fine{font-family:'EB Garamond', serif; font-style:italic; font-size:13px; color:var(--gray); margin-top:18px;}
 
   /* GALERÍA */
-  .galeria{display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-bottom:48px;}
+  .galeria{display:flex; flex-wrap:wrap; justify-content:center; gap:24px; margin-bottom:48px;}
+  .galeria .tarjeta{flex:0 0 calc((100% - 4 * 24px) / 5);}
+  @media(max-width:860px){.galeria .tarjeta{flex-basis:calc((100% - 2 * 24px) / 3);}}
   @media(max-width:700px){
-    .galeria{gap:10px;}
+    .galeria{gap:18px 10px;}
+    .galeria .tarjeta{flex-basis:calc((100% - 2 * 10px) / 3);}
     .tarjeta-foto{margin-bottom:8px;}
     .tarjeta-nombre{font-size:19px;}
     .tarjeta-sub{font-size:9.5px; letter-spacing:.05em;}
@@ -149,7 +151,7 @@
   .tarjeta-foto img{width:100%; height:100%; object-fit:cover; transition:transform .5s ease;}
   .tarjeta:hover .tarjeta-foto img, .tarjeta:focus-visible .tarjeta-foto img{transform:scale(1.04);}
   .tarjeta:focus-visible{outline:2px solid var(--tan); outline-offset:6px;}
-  .tarjeta-nombre{font-size:clamp(19px,2.6vw,30px); color:var(--navy); line-height:1.1;}
+  .tarjeta-nombre{font-size:clamp(19px,2.3vw,28px); color:var(--navy); line-height:1.1;}
   .tarjeta-sub{font-size:12.5px; letter-spacing:.09em; text-transform:uppercase; color:var(--tan);}
 
   /* FICHA (ventana) */
@@ -167,6 +169,63 @@
   }
   @media(max-width:859px){dialog.detalle .product .photo img{max-height:42vh;}}
   body.ficha-abierta{overflow:hidden;}
+
+  /* CARRITO */
+  .carrito-btn{
+    position:absolute; right:24px; top:50%; transform:translateY(-50%);
+    background:none; border:none; cursor:pointer; color:var(--navy); padding:6px; line-height:0;
+  }
+  .carrito-punto{
+    position:absolute; top:4px; right:3px; width:10px; height:10px; border-radius:50%;
+    background:#2f5bd3; box-shadow:0 0 0 2px var(--cream);
+  }
+  .carrito-punto[hidden]{display:none;}
+  .agregar{display:flex; gap:10px; margin-top:22px; align-items:stretch;}
+  .cantidad{display:flex; align-items:center; border:1px solid var(--navy);}
+  .cantidad button{width:38px; height:100%; min-height:44px; border:none; background:none; color:var(--navy); font-size:18px; cursor:pointer;}
+  .cantidad button:disabled{opacity:.3; cursor:default;}
+  .cantidad .n{min-width:28px; text-align:center; font-size:15px; color:var(--ink);}
+  .agregar-btn{
+    flex:1; border:none; background:var(--navy); color:var(--cream); cursor:pointer;
+    font:inherit; font-size:14.5px; letter-spacing:.03em; padding:12px 16px; transition:background .2s;
+  }
+  .agregar-btn:hover{background:var(--navy-deep);}
+  .agregar-btn:disabled{opacity:.45; cursor:default;}
+  .agregado-msg{font-size:13px; color:#3d6b4a; margin-top:8px;}
+  .agregado-msg button, .carrito-vaciar{background:none; border:none; padding:0; font:inherit; color:var(--navy); text-decoration:underline; cursor:pointer;}
+  dialog.detalle .agregar + .agregado-msg + .buy, dialog.detalle .agregar + .buy{
+    margin-top:10px; background:none; color:var(--navy); border:1px solid var(--navy);
+  }
+  dialog.detalle .agregar + .agregado-msg + .buy:hover, dialog.detalle .agregar + .buy:hover{background:var(--navy); color:var(--cream);}
+
+  dialog.carrito{
+    margin:0 0 0 auto; border:none; padding:0; background:var(--cream); color:var(--ink);
+    width:min(420px, 100%); height:100%; max-height:100%; max-width:100%;
+    display:flex; flex-direction:column;
+  }
+  dialog.carrito:not([open]){display:none;}
+  dialog.carrito::backdrop{background:rgba(52,52,74,.55);}
+  .carrito-cabeza{display:flex; align-items:center; justify-content:space-between; padding:22px 24px; border-bottom:1px solid var(--line);}
+  .carrito-cabeza h2{font-weight:400; font-size:28px; color:var(--navy);}
+  .carrito-cerrar{background:none; border:none; font-size:28px; line-height:1; color:var(--gray); cursor:pointer;}
+  #carrito-lista{flex:1; overflow:auto; padding:8px 24px;}
+  .carrito-vacio{padding:28px 24px; color:var(--gray); font-size:14.5px;}
+  .carrito-vacio[hidden]{display:none;}
+  .item{display:grid; grid-template-columns:64px 1fr; gap:14px; padding:16px 0; border-bottom:1px solid var(--line);}
+  .item img{width:64px; height:64px; object-fit:cover; border:1px solid var(--line);}
+  .item .nombre{font-family:'EB Garamond', serif; font-size:21px; color:var(--navy); line-height:1.1;}
+  .item .sub{font-size:12.5px; color:var(--gray);}
+  .item .fila{display:flex; align-items:center; justify-content:space-between; margin-top:8px; gap:10px;}
+  .item .cantidad button{min-height:32px; width:32px;}
+  .item .quitar{background:none; border:none; font:inherit; font-size:12.5px; color:var(--gray); text-decoration:underline; cursor:pointer;}
+  .item .aviso{font-size:12px; color:#9a4b3f; margin-top:4px;}
+  .carrito-pie{padding:18px 24px 24px; border-top:1px solid var(--navy); background:#fff;}
+  .carrito-pie[hidden]{display:none;}
+  .carrito-total{display:flex; justify-content:space-between; align-items:baseline;}
+  .carrito-total .serif{font-size:28px; color:var(--navy);}
+  .carrito-nota{font-size:12.5px; color:var(--gray); margin:4px 0 14px;}
+  .carrito-pie .buy{display:flex; width:100%; margin-top:0;}
+  .carrito-vaciar{display:block; margin:14px auto 0; font-size:13px; color:var(--gray);}
 
   /* WHY MARBLE */
   .why{background:var(--cream-2); border-top:1px solid var(--line); border-bottom:1px solid var(--line); margin-top:20px;}
@@ -268,29 +327,28 @@
 
 <header class="site">
   <div class="nav-inner">
-    <img src="assets/img/logo-dark.png" alt="VINCA">
     <nav class="links">
       <a href="#coleccion">Colección</a>
       <a href="#contacto">Contacto</a>
     </nav>
-    <a class="btn nav-cta" href="#coleccion">Ver mesas</a>
+    <button type="button" class="carrito-btn" id="abrir-carrito" aria-label="Ver carrito">
+      <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 4h2l2.2 10.2a1.5 1.5 0 0 0 1.5 1.2h8.6a1.5 1.5 0 0 0 1.5-1.1L20.5 8H6.1"/>
+        <circle cx="9.5" cy="19.5" r="1.3"/><circle cx="17" cy="19.5" r="1.3"/>
+      </svg>
+      <span class="carrito-punto" id="carrito-punto" hidden></span>
+    </button>
   </div>
 </header>
 
 <section class="hero">
   <img class="logo" src="assets/img/logo-cream.png" alt="VINCA">
-  <div class="divider"><span></span><div class="diamond"></div><span></span></div>
-  <h1 class="serif">Colección de mesas de mármol</h1>
-  <div class="divider"><span></span><div class="diamond"></div><span></span></div>
-  <p class="lede">El mármol es una piedra natural noble y atemporal, reconocida por sus vetas únicas, su durabilidad y su capacidad de aportar textura, luz y sofisticación a cualquier espacio.</p>
-  <p class="tagline serif">Piezas únicas para elevar<br>cualquier rincón de tu casa.</p>
-  <div class="hero-cta"><a class="btn" href="#coleccion">Ver colección</a></div>
 </section>
 
 <section class="intro">
-  <h2 class="serif">Tres diseños, una misma esencia</h2>
-  <p>Cada mesa es una pieza de mármol natural con base de fierro negro pintado. Al ser un material natural, cada unidad puede presentar variaciones únicas en veta y color — parte de lo que las hace irrepetibles.</p>
+  <h2 class="serif">Cinco diseños, una misma esencia</h2>
 </section>
+
 
 <section class="products" id="coleccion">
 
@@ -309,6 +367,16 @@
       <span class="tarjeta-foto"><img src="assets/img/volterra.jpg" alt="Mesa Volterra"></span>
       <span class="tarjeta-nombre serif">Volterra</span>
       <span class="tarjeta-sub">Set de 2 mesas</span>
+    </button>
+    <button type="button" class="tarjeta" data-abre="detalle-matera">
+      <span class="tarjeta-foto"><img src="assets/img/matera.webp" alt="Mesa Matera"></span>
+      <span class="tarjeta-nombre serif">Matera</span>
+      <span class="tarjeta-sub">Cubierta cuadrada</span>
+    </button>
+    <button type="button" class="tarjeta" data-abre="detalle-capri">
+      <span class="tarjeta-foto"><img src="assets/img/capri.webp" alt="Mesa Capri"></span>
+      <span class="tarjeta-nombre serif">Capri</span>
+      <span class="tarjeta-sub">Doble cubierta cuadrada</span>
     </button>
   </div>
 
@@ -334,6 +402,15 @@
           <span class="note">+ despacho · Precio Lanzamiento</span>
         </div>
         <div class="stock" data-producto="cefalu">Disponibilidad: sujeto a stock</div>
+        <div class="agregar" data-producto="cefalu">
+          <div class="cantidad" role="group" aria-label="Cantidad">
+            <button type="button" data-accion="menos" aria-label="Quitar uno">−</button>
+            <span class="n" aria-live="polite">1</span>
+            <button type="button" data-accion="mas" aria-label="Sumar uno">+</button>
+          </div>
+          <button type="button" class="agregar-btn">Agregar al carrito</button>
+        </div>
+        <p class="agregado-msg" hidden>Agregado al carrito · <button type="button" class="ver-carrito">Ver carrito</button></p>
         <a class="buy" href="https://wa.me/56997392615?text=Hola%20Maria%20Ignacia%2C%20me%20interesa%20la%20mesa%20Cefal%C3%BA%20(%24100.000)" target="_blank" rel="noopener">Consultar por WhatsApp</a>
         <p class="fine">Al ser mármol natural, cada pieza puede tener variaciones únicas en veta y color.</p>
       </div>
@@ -362,6 +439,15 @@
           <span class="note">+ despacho · Precio Lanzamiento</span>
         </div>
         <div class="stock" data-producto="menfi">Disponibilidad: sujeto a stock</div>
+        <div class="agregar" data-producto="menfi">
+          <div class="cantidad" role="group" aria-label="Cantidad">
+            <button type="button" data-accion="menos" aria-label="Quitar uno">−</button>
+            <span class="n" aria-live="polite">1</span>
+            <button type="button" data-accion="mas" aria-label="Sumar uno">+</button>
+          </div>
+          <button type="button" class="agregar-btn">Agregar al carrito</button>
+        </div>
+        <p class="agregado-msg" hidden>Agregado al carrito · <button type="button" class="ver-carrito">Ver carrito</button></p>
         <a class="buy" href="https://wa.me/56997392615?text=Hola%20Maria%20Ignacia%2C%20me%20interesa%20la%20mesa%20Menfi%20(%24130.000)" target="_blank" rel="noopener">Consultar por WhatsApp</a>
         <p class="fine">Al ser mármol natural, cada pieza puede tener variaciones únicas en veta y color.</p>
       </div>
@@ -390,7 +476,90 @@
           <span class="note">+ despacho · Precio Lanzamiento</span>
         </div>
         <div class="stock" data-producto="volterra">Disponibilidad: sujeto a stock</div>
+        <div class="agregar" data-producto="volterra">
+          <div class="cantidad" role="group" aria-label="Cantidad">
+            <button type="button" data-accion="menos" aria-label="Quitar uno">−</button>
+            <span class="n" aria-live="polite">1</span>
+            <button type="button" data-accion="mas" aria-label="Sumar uno">+</button>
+          </div>
+          <button type="button" class="agregar-btn">Agregar al carrito</button>
+        </div>
+        <p class="agregado-msg" hidden>Agregado al carrito · <button type="button" class="ver-carrito">Ver carrito</button></p>
         <a class="buy" href="https://wa.me/56997392615?text=Hola%20Maria%20Ignacia%2C%20me%20interesa%20el%20set%20Volterra%20(%24160.000)" target="_blank" rel="noopener">Consultar por WhatsApp</a>
+        <p class="fine">Al ser mármol natural, cada pieza puede tener variaciones únicas en veta y color.</p>
+      </div>
+    </article>
+  </dialog>
+
+  <dialog class="detalle" id="detalle-matera" aria-label="Matera">
+    <button type="button" class="detalle-cerrar" aria-label="Cerrar">&times;</button>
+    <article class="product">
+      <div class="photo"><img src="assets/img/matera.webp" alt="Mesa de mármol Matera de VINCA junto a un sillón"></div>
+      <div class="info">
+        <h3 class="name serif">Matera</h3>
+        <div class="rule"></div>
+        <p class="desc">Pieza versátil y atemporal, ideal para living, dormitorio o rincón de apoyo.</p>
+
+        <div class="spec-label">Ficha técnica</div>
+        <table class="specs">
+          <tr><td class="k">Medidas</td><td class="v">Alto: 50 cm<br>Cubierta cuadrada: 40 x 40 cm aprox.</td></tr>
+          <tr><td class="k">Material</td><td class="v">Mármol natural</td></tr>
+          <tr><td class="k">Tono principal</td><td class="v">Beige / crema</td></tr>
+          <tr><td class="k">Base</td><td class="v">Fierro negro pintado</td></tr>
+        </table>
+
+        <div class="price-row">
+          <span class="price serif">$110.000</span>
+          <span class="note">+ despacho · Precio Lanzamiento</span>
+        </div>
+        <div class="stock" data-producto="matera">Disponibilidad: sujeto a stock</div>
+        <div class="agregar" data-producto="matera">
+          <div class="cantidad" role="group" aria-label="Cantidad">
+            <button type="button" data-accion="menos" aria-label="Quitar uno">−</button>
+            <span class="n" aria-live="polite">1</span>
+            <button type="button" data-accion="mas" aria-label="Sumar uno">+</button>
+          </div>
+          <button type="button" class="agregar-btn">Agregar al carrito</button>
+        </div>
+        <p class="agregado-msg" hidden>Agregado al carrito · <button type="button" class="ver-carrito">Ver carrito</button></p>
+        <a class="buy" href="https://wa.me/56997392615?text=Hola%20Maria%20Ignacia%2C%20me%20interesa%20la%20mesa%20Matera%20(%24110.000)" target="_blank" rel="noopener">Consultar por WhatsApp</a>
+        <p class="fine">Al ser mármol natural, cada pieza puede tener variaciones únicas en veta y color.</p>
+      </div>
+    </article>
+  </dialog>
+
+  <dialog class="detalle" id="detalle-capri" aria-label="Capri">
+    <button type="button" class="detalle-cerrar" aria-label="Cerrar">&times;</button>
+    <article class="product">
+      <div class="photo"><img src="assets/img/capri.webp" alt="Mesa de mármol Capri de VINCA junto a un sofá"></div>
+      <div class="info">
+        <h3 class="name serif">Capri</h3>
+        <div class="rule"></div>
+        <p class="desc">Diseño funcional con doble superficie, ideal para sumar apoyo y estilo en espacios pequeños.</p>
+
+        <div class="spec-label">Ficha técnica</div>
+        <table class="specs">
+          <tr><td class="k">Medidas</td><td class="v">Alto: 60 cm<br>2 cubiertas cuadradas: 40 x 40 cm aprox.</td></tr>
+          <tr><td class="k">Material</td><td class="v">Mármol natural</td></tr>
+          <tr><td class="k">Tono principal</td><td class="v">Beige / crema</td></tr>
+          <tr><td class="k">Base</td><td class="v">Fierro negro</td></tr>
+        </table>
+
+        <div class="price-row">
+          <span class="price serif">$160.000</span>
+          <span class="note">+ despacho · Precio Lanzamiento</span>
+        </div>
+        <div class="stock" data-producto="capri">Disponibilidad: sujeto a stock</div>
+        <div class="agregar" data-producto="capri">
+          <div class="cantidad" role="group" aria-label="Cantidad">
+            <button type="button" data-accion="menos" aria-label="Quitar uno">−</button>
+            <span class="n" aria-live="polite">1</span>
+            <button type="button" data-accion="mas" aria-label="Sumar uno">+</button>
+          </div>
+          <button type="button" class="agregar-btn">Agregar al carrito</button>
+        </div>
+        <p class="agregado-msg" hidden>Agregado al carrito · <button type="button" class="ver-carrito">Ver carrito</button></p>
+        <a class="buy" href="https://wa.me/56997392615?text=Hola%20Maria%20Ignacia%2C%20me%20interesa%20la%20mesa%20Capri%20(%24160.000)" target="_blank" rel="noopener">Consultar por WhatsApp</a>
         <p class="fine">Al ser mármol natural, cada pieza puede tener variaciones únicas en veta y color.</p>
       </div>
     </article>
@@ -423,6 +592,22 @@
   </div>
   <button type="button" class="te-esperamos" id="abrir-panel">Te esperamos</button>
 </footer>
+
+<!-- Carrito -->
+<dialog class="carrito" id="carrito" aria-labelledby="carrito-titulo">
+  <div class="carrito-cabeza">
+    <h2 class="serif" id="carrito-titulo">Tu carrito</h2>
+    <button type="button" class="carrito-cerrar" id="cerrar-carrito" aria-label="Cerrar">&times;</button>
+  </div>
+  <div id="carrito-lista"></div>
+  <p class="carrito-vacio" id="carrito-vacio">Tu carrito está vacío. Elige una mesa y pincha <em>Agregar al carrito</em>.</p>
+  <div class="carrito-pie" id="carrito-pie" hidden>
+    <div class="carrito-total"><span>Total referencial</span><span class="serif" id="carrito-total"></span></div>
+    <p class="carrito-nota">+ despacho. Te confirmamos precio final y disponibilidad por WhatsApp.</p>
+    <a class="buy" id="carrito-cotizar" href="#" target="_blank" rel="noopener">Pedir cotización por WhatsApp</a>
+    <button type="button" class="carrito-vaciar" id="carrito-vaciar">Vaciar carrito</button>
+  </div>
+</dialog>
 
 <!-- Panel privado de stock -->
 <div class="panel-overlay" id="panel-overlay" aria-hidden="true">
@@ -469,6 +654,7 @@
     d.addEventListener('close', () => document.body.classList.remove('ficha-abierta'));
   });
 </script>
+<script type="module" src="carrito.js"></script>
 <script type="module" src="stock.js"></script>
 
 </body>

@@ -45,7 +45,15 @@ Sin este paso el login no funciona en ese dominio.
 
 ## Cambiar los modelos de mesas
 No hay que tocar Firebase: las reglas aceptan cualquier modelo.
-1. En `index.html`, actualiza cada mesa (foto, nombre, medidas, precio) y su
-   `data-producto="id-del-modelo"` (solo minúsculas, números o guiones).
-2. En `stock.js`, actualiza la lista `PRODUCTOS` con los mismos ids y la foto de cada modelo.
+1. En `index.html`, actualiza la tarjeta de cada mesa (`data-abre="detalle-id"`) y su ficha
+   (`<dialog id="detalle-id">`: foto, nombre, medidas, precio, `data-producto="id"`).
+   El id usa solo minúsculas, números o guiones.
+2. En `productos.js`, actualiza la lista `PRODUCTOS` con los mismos ids, precio y foto.
+   La usan el panel de stock y el carrito.
 3. Publica los cambios y carga el stock nuevo desde **Te esperamos**.
+
+## Carrito
+- Cada ficha tiene **Agregar al carrito** con − / +; no deja pedir más que el stock disponible.
+- El carrito se abre con el ícono de arriba a la derecha y muestra un punto azul si tiene mesas.
+- **Pedir cotización por WhatsApp** envía la lista de mesas, cantidades y el total referencial.
+- El carrito se guarda en el navegador de cada visitante (no se guarda en Firebase).
