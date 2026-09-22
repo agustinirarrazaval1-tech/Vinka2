@@ -47,5 +47,5 @@ Sin este paso el login no funciona en ese dominio.
 No hay que tocar Firebase: las reglas aceptan cualquier modelo.
 1. En `index.html`, actualiza cada mesa (foto, nombre, medidas, precio) y su
    `data-producto="id-del-modelo"` (solo minúsculas, números o guiones).
-2. En `stock.js`, actualiza la lista `PRODUCTOS` con los mismos ids.
+2. En `stock.js`, actualiza la lista `PRODUCTOS` con los mismos ids y la foto de cada modelo.
 3. Publica los cambios y carga el stock nuevo desde **Te esperamos**.

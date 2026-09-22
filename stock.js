@@ -6,9 +6,9 @@ import { firebaseConfig, usuarioAdmin, correoAdmin } from "./firebase-config.js"
 // Modelos a la venta. El id debe coincidir con data-producto en index.html
 // y usar solo minúsculas, números o guiones (lo exigen las reglas de Firestore).
 const PRODUCTOS = [
-  { id: "cefalu",   nombre: "Cefalú",   detalle: "Mesa ovalada · $100.000", unidad: ["unidad", "unidades"] },
-  { id: "menfi",    nombre: "Menfi",    detalle: "Doble cubierta · $130.000", unidad: ["unidad", "unidades"] },
-  { id: "volterra", nombre: "Volterra", detalle: "Set de 2 mesas · $160.000", unidad: ["set", "sets"] }
+  { id: "cefalu",   nombre: "Cefalú",   detalle: "Mesa ovalada · $100.000",   foto: "assets/img/cefalu.jpg", unidad: ["unidad", "unidades"] },
+  { id: "menfi",    nombre: "Menfi",    detalle: "Doble cubierta · $130.000", foto: "assets/img/menfi.jpg", unidad: ["unidad", "unidades"] },
+  { id: "volterra", nombre: "Volterra", detalle: "Set de 2 mesas · $160.000", foto: "assets/img/volterra.jpg", unidad: ["set", "sets"] }
 ];
 
 const $ = (id) => document.getElementById(id);
@@ -59,6 +59,7 @@ function construirDashboard() {
     const fila = document.createElement("div");
     fila.className = "fila-stock";
     fila.innerHTML = `
+      <img class="miniatura" src="${p.foto}" alt="Mesa ${p.nombre}" loading="lazy">
       <div>
         <div class="nombre">${p.nombre}</div>
         <div class="detalle">${p.detalle} · <span data-actual></span></div>
