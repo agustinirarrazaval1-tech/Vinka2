@@ -58,9 +58,9 @@
   /* HERO */
   .hero{
     background:var(--navy); color:var(--cream);
-    text-align:center; padding:90px 24px 70px;
+    text-align:center; padding:34px 24px;
   }
-  .hero img.logo{height:52px; width:auto; margin:0 auto 34px;}
+  .hero img.logo{height:54px; width:auto; max-width:100%; object-fit:contain; margin:0 auto;}
   .divider{
     display:flex; align-items:center; justify-content:center; gap:16px;
     margin:26px auto; max-width:320px;
@@ -81,7 +81,7 @@
 
   /* INTRO STRIP */
   .intro{
-    max-width:720px; margin:0 auto; padding:70px 24px 20px; text-align:center;
+    max-width:720px; margin:0 auto; padding:48px 24px 8px; text-align:center;
   }
   .intro h2{
     font-family:'EB Garamond', serif; font-weight:400; font-size:clamp(26px,3.5vw,34px);
@@ -279,18 +279,12 @@
 
 <section class="hero">
   <img class="logo" src="assets/img/logo-cream.png" alt="VINCA">
-  <div class="divider"><span></span><div class="diamond"></div><span></span></div>
-  <h1 class="serif">Colección de mesas de mármol</h1>
-  <div class="divider"><span></span><div class="diamond"></div><span></span></div>
-  <p class="lede">El mármol es una piedra natural noble y atemporal, reconocida por sus vetas únicas, su durabilidad y su capacidad de aportar textura, luz y sofisticación a cualquier espacio.</p>
-  <p class="tagline serif">Piezas únicas para elevar<br>cualquier rincón de tu casa.</p>
-  <div class="hero-cta"><a class="btn" href="#coleccion">Ver colección</a></div>
 </section>
 
 <section class="intro">
   <h2 class="serif">Tres diseños, una misma esencia</h2>
-  <p>Cada mesa es una pieza de mármol natural con base de fierro negro pintado. Al ser un material natural, cada unidad puede presentar variaciones únicas en veta y color — parte de lo que las hace irrepetibles.</p>
 </section>
+
 
 <section class="products" id="coleccion">
 
