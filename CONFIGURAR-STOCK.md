@@ -12,7 +12,7 @@ y pegar sus datos en `firebase-config.js`. Se hace una sola vez y toma unos 10 m
 2. En **Método de acceso**, activa **Correo electrónico/contraseña** y guarda.
 3. Pestaña **Usuarios → Agregar usuario**:
    - Correo: `vincatech@vinca.cl`
-   - Contraseña: `ñañamargarita`
+   - Contraseña: la clave que elijas (no la escribas en este repositorio, es público)
 
    En la página escribirás el usuario **Vincatech**; la página lo traduce a ese correo.
    (Si prefieres usar un correo tuyo real, cámbialo también en `firebase-config.js`
@@ -37,7 +37,7 @@ Sin este paso el login no funciona en ese dominio.
 
 ## Uso diario
 - Al final de la página, esquina inferior derecha, pincha **Te esperamos**.
-- Entra con **Vincatech** / **ñañamargarita**.
+- Entra con el usuario **Vincatech** y tu clave.
 - Verás cada mesa con su stock y el total de unidades. Usa − / + o escribe el número
   y presiona **Guardar**. Los clientes lo ven al instante.
 - Si una mesa queda en 0, la página muestra "Agotado".
