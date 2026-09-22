@@ -42,3 +42,10 @@ Sin este paso el login no funciona en ese dominio.
   y presiona **Guardar**. Los clientes lo ven al instante.
 - Si una mesa queda en 0, la página muestra "Agotado".
 - Mientras no cargues ningún número, la página sigue mostrando "Disponibilidad: sujeto a stock".
+
+## Cambiar los modelos de mesas
+No hay que tocar Firebase: las reglas aceptan cualquier modelo.
+1. En `index.html`, actualiza cada mesa (foto, nombre, medidas, precio) y su
+   `data-producto="id-del-modelo"` (solo minúsculas, números o guiones).
+2. En `stock.js`, actualiza la lista `PRODUCTOS` con los mismos ids.
+3. Publica los cambios y carga el stock nuevo desde **Te esperamos**.

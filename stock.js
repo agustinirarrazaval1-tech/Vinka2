@@ -3,6 +3,8 @@ import { getFirestore, collection, doc, onSnapshot, setDoc, serverTimestamp } fr
 import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import { firebaseConfig, usuarioAdmin, correoAdmin } from "./firebase-config.js";
 
+// Modelos a la venta. El id debe coincidir con data-producto en index.html
+// y usar solo minúsculas, números o guiones (lo exigen las reglas de Firestore).
 const PRODUCTOS = [
   { id: "cefalu",   nombre: "Cefalú",   detalle: "Mesa ovalada · $100.000", unidad: ["unidad", "unidades"] },
   { id: "menfi",    nombre: "Menfi",    detalle: "Doble cubierta · $130.000", unidad: ["unidad", "unidades"] },
