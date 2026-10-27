@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>VINCA — Colección de mesas de mármol</title>
 <meta name="description" content="VINCA: mesas de mármol natural con base de fierro negro, hechas en Santiago, Chile. Modelos Cefalú, Menfi, Volterra, Matera y Capri. Cotiza por WhatsApp.">
-<link rel="canonical" href="https://vincainteriores.cl/">
+<link rel="canonical" href="https://www.vincainteriores.cl/">
 <link rel="icon" type="image/png" href="assets/img/logo-dark.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="VINCA">
 <meta property="og:title" content="VINCA — Colección de mesas de mármol">
 <meta property="og:description" content="Piezas únicas de mármol natural para elevar cualquier rincón de tu casa.">
-<meta property="og:url" content="https://vincainteriores.cl/">
-<meta property="og:image" content="https://vincainteriores.cl/assets/img/cefalu.jpg">
+<meta property="og:url" content="https://www.vincainteriores.cl/">
+<meta property="og:image" content="https://www.vincainteriores.cl/assets/img/cefalu.jpg">
 <meta property="og:locale" content="es_CL">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -60,8 +60,6 @@
     transition:background .2s;
   }
   .btn:hover{background:var(--navy-deep);}
-  .nav-cta{display:none;}
-  @media(min-width:640px){.nav-cta{display:inline-block;}}
 
   /* HERO */
   .hero{
@@ -651,21 +649,7 @@
   </div>
 </div>
 
-<script>
-  document.querySelectorAll('.tarjeta').forEach((t) => {
-    t.addEventListener('click', () => {
-      const d = document.getElementById(t.dataset.abre);
-      d.showModal();
-      d.scrollTop = 0;
-      document.body.classList.add('ficha-abierta');
-    });
-  });
-  document.querySelectorAll('dialog.detalle').forEach((d) => {
-    d.querySelector('.detalle-cerrar').addEventListener('click', () => d.close());
-    d.addEventListener('click', (e) => { if (e.target === d) d.close(); });
-    d.addEventListener('close', () => document.body.classList.remove('ficha-abierta'));
-  });
-</script>
+<script type="module" src="fichas.js"></script>
 <script type="module" src="carrito.js"></script>
 <script type="module" src="stock.js"></script>
 
