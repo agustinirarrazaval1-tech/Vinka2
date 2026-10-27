@@ -1,4 +1,5 @@
 import { PRODUCTOS, WHATSAPP, formatoPrecio } from "./productos.js";
+import { liberarScroll } from "./fichas.js";
 
 // Carrito de cotización. Se guarda en el navegador de cada visitante.
 const CLAVE = "vinca-carrito";
@@ -159,7 +160,7 @@ function abrir() {
 $("abrir-carrito").addEventListener("click", abrir);
 $("cerrar-carrito").addEventListener("click", () => ventana.close());
 ventana.addEventListener("click", (e) => { if (e.target === ventana) ventana.close(); });
-ventana.addEventListener("close", () => document.body.classList.remove("ficha-abierta"));
+ventana.addEventListener("close", liberarScroll);
 $("carrito-vaciar").addEventListener("click", () => { carrito = {}; guardar(); actualizarTodo(); });
 
 // El stock en vivo limita cuántas mesas se pueden pedir

@@ -62,7 +62,7 @@ function construirDashboard() {
       </div>
       <div class="editor">
         <button type="button" data-accion="menos" aria-label="Restar uno">−</button>
-        <input type="number" min="0" step="1" inputmode="numeric" aria-label="Stock de ${p.nombre}">
+        <input type="number" min="0" max="10000" step="1" inputmode="numeric" aria-label="Stock de ${p.nombre}">
         <button type="button" data-accion="mas" aria-label="Sumar uno">+</button>
         <button type="button" class="guardar" data-accion="guardar" disabled>Guardar</button>
       </div>`;
@@ -75,7 +75,7 @@ function construirDashboard() {
       input.value = Math.max(0, (leerNumero(input) ?? 0) - 1); marcarCambio();
     };
     fila.querySelector('[data-accion="mas"]').onclick = () => {
-      input.value = (leerNumero(input) ?? 0) + 1; marcarCambio();
+      input.value = Math.min(STOCK_MAXIMO, (leerNumero(input) ?? 0) + 1); marcarCambio();
     };
     input.oninput = marcarCambio;
     guardar.onclick = () => guardarStock(p, input, guardar);
@@ -85,9 +85,12 @@ function construirDashboard() {
   pintarDashboard(true);
 }
 
+// Mismo tope que exigen las reglas de Firestore
+const STOCK_MAXIMO = 10000;
+
 function leerNumero(input) {
   const n = Number(input.value);
-  return input.value !== "" && Number.isInteger(n) && n >= 0 ? n : null;
+  return input.value !== "" && Number.isInteger(n) && n >= 0 && n <= STOCK_MAXIMO ? n : null;
 }
 
 function pintarDashboard(forzar = false) {
@@ -110,7 +113,7 @@ function pintarDashboard(forzar = false) {
 
 async function guardarStock(p, input, boton) {
   const n = leerNumero(input);
-  if (n === null) { mensaje(dashMsg, "Ingresa un número entero igual o mayor a 0.", "error"); return; }
+  if (n === null) { mensaje(dashMsg, `Ingresa un número entero entre 0 y ${STOCK_MAXIMO}.`, "error"); return; }
   boton.disabled = true;
   boton.textContent = "…";
   try {
@@ -189,6 +192,8 @@ $("cerrar-sesion").onclick = async () => { await signOut(auth); cerrarPanel(); }
 
 if (configurado) {
   onSnapshot(collection(db, "productos"), (snap) => {
+    // Se arma de nuevo en cada cambio, así un modelo borrado en Firestore deja de mostrarse
+    for (const id of Object.keys(stockActual)) delete stockActual[id];
     snap.forEach((d) => {
       const n = d.data().stock;
       if (Number.isInteger(n)) stockActual[d.id] = n;

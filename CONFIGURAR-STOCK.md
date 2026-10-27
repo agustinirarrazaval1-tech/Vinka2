@@ -21,8 +21,11 @@ y pegar sus datos en `firebase-config.js`. Se hace una sola vez y toma unos 10 m
 ## 3. Crear la base de datos
 1. Menú izquierdo: **Compilación → Firestore Database → Crear base de datos**.
 2. Ubicación: `southamerica-east1` (São Paulo) → modo **producción** → **Crear**.
-3. Pestaña **Reglas**: borra lo que hay, pega el contenido del archivo `firestore.rules`
-   de este repositorio y presiona **Publicar**.
+3. En **Authentication → Usuarios**, copia el **UID de usuario** de la cuenta `vincatech@vinca.cl`.
+4. Pestaña **Reglas** de Firestore: borra lo que hay, pega el contenido del archivo
+   `firestore.rules` de este repositorio, reemplaza `PEGAR_UID_ADMIN` por ese UID
+   y presiona **Publicar**. Si se te olvida reemplazarlo, nadie podrá cambiar el stock
+   (la página sigue funcionando para los clientes).
 
 ## 4. Conectar la página
 1. Ícono de engranaje → **Configuración del proyecto** → sección **Tus apps** → ícono `</>` (Web).
@@ -32,8 +35,22 @@ y pegar sus datos en `firebase-config.js`. Se hace una sola vez y toma unos 10 m
 
 ## 5. Cuando tengas el dominio en Vercel
 En Firebase: **Authentication → Configuración → Dominios autorizados → Agregar dominio**
-y agrega tu dominio (por ejemplo `vinca.cl`) y también el `*.vercel.app` que te da Vercel.
+y agrega tu dominio (`www.vincainteriores.cl` y `vincainteriores.cl`) y también el `*.vercel.app` que te da Vercel.
 Sin este paso el login no funciona en ese dominio.
+
+## Seguridad (una sola vez)
+En **Authentication → Configuración**:
+- **Acciones del usuario**: desmarca **Habilitar creación (registro)** y **Habilitar eliminación**.
+  Así nadie puede crearse una cuenta en tu proyecto desde fuera de la página.
+- **Protección contra la enumeración de correos**: actívala.
+- **Dominios autorizados**: deja solo `localhost`, `vinca-64b82.firebaseapp.com`,
+  `www.vincainteriores.cl`, `vincainteriores.cl` y `vinka2.vercel.app`.
+
+Usa una clave larga (12 caracteres o más) que no uses en otro lado.
+
+La página manda headers de seguridad desde `vercel.json` (Content-Security-Policy y otros).
+Si algún día agregas un servicio externo nuevo (por ejemplo un script de analítica),
+hay que sumar su dominio a la `Content-Security-Policy` o el navegador lo va a bloquear.
 
 ## Uso diario
 - Al final de la página, esquina inferior derecha, pincha **Te esperamos**.
